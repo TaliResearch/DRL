@@ -1,0 +1,113 @@
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from collections import deque
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
+
+# Define the DQN trading agent class
+class DQNAgent:
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.memory = deque(maxlen=2000)
+        self.gamma = 0.95  # discount rate
+        self.epsilon = 1.0  # exploration rate
+        self.epsilon_min = 0.01
+        self.epsilon_decay = 0.995
+        self.model = self._build_model()
+
+    def _build_model(self):
+        model = Sequential()
+        model.add(Dense(24, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(24, activation='relu'))
+        model.add(Dense(self.action_size, activation='linear'))
+        model.compile(loss='mse', optimizer=Adam(lr=0.001))
+        return model
+
+    def act(self, state):
+        if np.random.rand() <= self.epsilon:
+            return np.random.choice(self.action_size)
+        q_values = self.model.predict(state)
+        return np.argmax(q_values[0])
+
+    def remember(self, state, action, reward, next_state, done):
+        self.memory.append((state, action, reward, next_state, done))
+
+    def replay(self, batch_size):
+        minibatch = np.random.choice(len(self.memory), batch_size, replace=False)
+        for state, action, reward, next_state, done in minibatch:
+            target = reward
+            if not done:
+                target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
+            target_f = self.model.predict(state)
+            target_f[0][action] = target
+            self.model.fit(state, target_f, epochs=1, verbose=0)
+        if self.epsilon > self.epsilon_min:
+            self.epsilon *= self.epsilon_decay
+
+# Define the trading environment class
+class TradingEnvironment:
+    def __init__(self, data):
+        self.data = data
+        self.reset()
+    
+    def reset(self):
+        self.state = self.data[0]
+        self.current_step = 0
+        self.done = False
+    
+    def step(self, action):
+        reward = self._get_reward(action)
+        self.current_step += 1
+        if self.current_step < len(self.data):
+            self.state = self.data[self.current_step]
+        else:
+            self.done = True
+        return self.state, reward, self.done
+    
+    def _get_reward(self, action):
+        # Define your reward logic based on the action and current state
+        # Example: reward = 1 if action is profitable, else reward = -1
+        return reward
+
+# Prepare the data and initialize the agent and environment
+data = pd.read_csv('equity_data.csv')  # Replace with desired data set
+# Preprocess the data and create the state and action spaces
+state_size = len(preprocessed_state)
+action_size = len(possible_actions)
+agent = DQNAgent(state_size, action_size)
+env = TradingEnvironment(data)
+
+# Training loop
+batch_size = 32
+episodes = 100
+for episode in range(episodes):
+    env.reset()
+    state = env.state
+    state = np.reshape(state, [1, state_size])
+    done = False
+    while not done:
+        action = agent.act(state)
+        next_state, reward, done = env.step(action)
+        next_state = np.reshape(next_state, [1, state_size])
+        agent.remember(state, action, reward, next_state, done)
+        state = next_state
+        if len(agent.memory) > batch_size:
+            agent.replay(batch_size)
+
+# Evaluation
+env.reset()
+state = env.state
+state = np.reshape(state, [1, state_size])
+done = False
+while not done:
+    action = agent.act(state)
+    next_state, reward, done = env.step(action)
+    next_state = np.reshape(next_state, [1, state_size])
+    state = next_state
+    # Take trading actions based on the agent's actions
+
+# Save the trained model in h5 format
+agent.model.save('trained_model.h5')
