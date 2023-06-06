@@ -121,3 +121,53 @@ while not done:
 
 # Save the trained model in h5 format
 agent.model.save('trained_model.h5')
+
+
+# Define initial portfolio variables
+initial_cash = 100000.0  # Initial cash balance
+cash_balance = initial_cash
+shares_held = 0
+portfolio_value = []
+
+# Evaluation loop
+env.reset()
+state = env.state
+state = np.reshape(state, [1, state_size])
+done = False
+while not done:
+    action = agent.act(state)
+    next_state, reward, done = env.step(action)
+    next_state = np.reshape(next_state, [1, state_size])
+    state = next_state
+
+    # Update portfolio based on trading actions
+    current_price = env.get_current_price()  
+    # Replace with specific tailored method call to get the current price if necessary
+    if action == BUY_ACTION:
+        shares_to_buy = calculate_shares_to_buy(cash_balance, current_price)
+        cash_balance -= shares_to_buy * current_price
+        shares_held += shares_to_buy
+    elif action == SELL_ACTION:
+        shares_to_sell = calculate_shares_to_sell(shares_held)
+        cash_balance += shares_to_sell * current_price
+        shares_held -= shares_to_sell
+
+    # Calculate portfolio value and append to the list
+    portfolio_value.append(cash_balance + (shares_held * current_price))
+
+# Calculate portfolio performance metrics
+final_portfolio_value = portfolio_value[-1]
+portfolio_return = (final_portfolio_value - initial_cash) / initial_cash
+annualized_return = ((1 + portfolio_return) ** (252 / len(portfolio_value))) - 1  # Assuming 252 trading days in a year
+cumulative_return = final_portfolio_value - initial_cash
+portfolio_volatility = np.std(portfolio_value)
+sharpe_ratio = (annualized_return - risk_free_rate) / portfolio_volatility  # Adjust risk-free rate accordingly
+
+# Print the performance metrics
+print("Final Portfolio Value: $", final_portfolio_value)
+print("Portfolio Return: {:.2%}".format(portfolio_return))
+print("Annualized Return: {:.2%}".format(annualized_return))
+print("Cumulative Return: $", cumulative_return)
+print("Portfolio Volatility: {:.2%}".format(portfolio_volatility))
+print("Sharpe Ratio: {:.2f}".format(sharpe_ratio))
+
