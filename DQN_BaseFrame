@@ -1,11 +1,19 @@
-"""This code provides a basic framework for implementing a DQN trading strategy. 
+"""
+This code provides a basic framework for implementing a DQN trading strategy. 
 We can replace the data loading and preprocessing steps with your different data sets 
 depending on the asset(s) of our preferred investment universe,
 as well as define the reward logic and possible actions based on style and parameters of 
 strategy. 
 
 Note: Adjust hyperparameters across a range of values to customise, for stress testing and
-to get a vision of boundary conditions.  """
+to get a vision of boundary conditions.  
+
+
+To monitor the portfolio performance of the trading strategy, 
+we can calculate various performance metrics based on the trading actions taken by the agent. 
+This framework includes the ability to track and 
+evaluate the portfolio performance during the evaluation phase
+"""
 
 
 import numpy as np
