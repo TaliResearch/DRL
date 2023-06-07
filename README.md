@@ -1,7 +1,7 @@
 # Deep Reinforcement Learning (DRL) Trading Framework 
 
-(-- See file titled "Write Up" in this repo for an easy to follow guide of what
-the model achieves.) 
+(-- See file titled "Write Up" in this repo for a more detailed, easy to follow, walk through
+of what the model achieves.) 
 
 Reinforcement Learning - Q-learning 
 Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. 
