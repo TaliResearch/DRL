@@ -1,0 +1,68 @@
+Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. 
+It does not require a model of the environment and can handle problems with stochastic transitions and rewards without 
+requiring adaptations. Combining this with deep learning gives us the DQN (Deep Q Network) algorithm. 
+
+There are 5 essential pieces to the framework model:
+1.	Data Preparation
+2.	Environment Setup
+3.	Deep Reinforcement Learning Model
+4.	Agent Training
+5.	Evaluation
+
+1.	Data Preparation:
+•	Obtain historical price data for the asset class of our investment universe -eg. US equities. 
+• As a simple starting point we can use libraries like pandas or yfinance to fetch the data from online sources.
+•	Preprocess the data by calculating technical indicators - common popular examples include moving averages, 
+  relative strength index (RSI), or other features. These features are not limited to technical trading indicators 
+  such as these examples - we can use fundamental indicators or more exotic inputs for training. But keep in mind
+  the more quantifiable inputs provide clearer and cleaner signal-noise ratios - enhancing algorithm performance
+  (Garbage in-Garbage out is very relevant when it comes to data quality here) 
+•	Split the data into training, validation, and testing sets. (We can also apply cross validation depending 
+  on the complexity we are considering in the model - cross-validation is a resampling method that uses 
+  different portions of the data to test and train a model on different iterations.)
+
+2.	Environment Setup:
+•	Define an environment class that represents the trading environment. This includes methods like reset, 
+  step, and get_state to handle the interaction between the agent and the environment.
+•	The reset method initializes the environment at the beginning of each episode, 
+  setting the initial state and any other necessary variables.
+•	The step method takes an action from the agent, updates the environment state, calculates the reward,
+  and returns the new state, reward (whether the episode is finished or not - careful). 
+•	The get_state method returns the current state of the environment.
+
+3.	Deep Reinforcement Learning Model: DQN 
+•	We apply a deep learning library, in this case tensorflow, another choice is pytorch,
+  to define a deep Q-network (DQN) model.
+•	The model takes the state variables data as input and outputs Q-values for each possible action.
+•	We train the model using the historical data and the deep Q-learning reinforcement learning algorithm.
+
+4.	Agent Training:
+•	Initialisation of the DQN model.
+•	Implementation of an agent class that interacts with the environment and the model.
+•	Applying an an exploration-exploitation strategy, most popular as we have applied here is epsilon-greedy, 
+  - this balances exploration of new actions and exploitation of learned actions.
+•	Start the training loop:
+    •	Resets the environment.
+    •	Gets the current state from the environment.
+    •	Chooses an action using the exploration-exploitation strategy.
+    •	Takes the chosen action in the environment and observes the next state, 
+    reward, and episode termination.
+    •	Stores the experience tuple (state, action, reward, next_state, done) in a replay buffer.
+    •	Samples a batch of experiences from the replay buffer.
+    •	Updates the DQN model using the sampled experiences.
+    •	Repeats the above steps until convergence or a predefined number of episodes.
+
+5.	Evaluation:  Testing
+•	After training, we use the trained model to make trading decisions in a simulated 
+  environment using the testing set.
+•	We evaluate the performance of our strategy by calculating core performance metrics 
+  like profit and loss, Sharpe ratio, and can add in other relevant measures 
+  such as Calman ratio and Sortino ratio. 
+
+A Note of Caution:
+Deep reinforcement learning for trading as a real world strategy is a far more complex task - 
+there are many additional considerations to take into account
+when it comes to trading and investing in the real market with real capital - 
+such as risk management, transaction costs, and the choice of hyperparameters. 
+This framework provides a starting point, from which we can further enhance it based on the 
+specific needs of the investor constraints, the asset class, the risk mandate and more..
