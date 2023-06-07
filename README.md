@@ -1,9 +1,15 @@
-# DRL Trading Framework 
+# Deep Reinforcement Learning (DRL) Trading Framework 
 
+(-- See file titled "Write Up" in this repo for an easy to follow guide of what
+the model achieves.) 
 
+Reinforcement Learning - Q-learning 
 Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. 
 It does not require a model of the environment and can handle problems with stochastic transitions and rewards without 
-requiring adaptations. Combining this with deep learning gives us the DQN (Deep Q Network) algorithm. 
+requiring adaptations. 
+
+DRL 
+Combining Q Learning with Deep learning gives us the DQN (Deep Q Network) algorithm. 
 
 There are 5 essential pieces to the framework model:
 1.	Data Preparation
