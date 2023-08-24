@@ -3,9 +3,13 @@
 (-- See file titled "Write Up" in this repo for a more detailed, easy to follow, walk through
 of what the model achieves.) 
 
+Reinforcement Learning - Q-learning 
+Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. 
+It does not require a model of the environment and can handle problems with stochastic transitions and rewards without 
+requiring adaptations. 
 
-DRL 
-Combining Q Learning with Deep learning gives us the DQN (Deep Q Network) algorithm. 
+
+
 
 There are 5 essential pieces to the framework model:
 1.	Data Preparation
