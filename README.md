@@ -9,6 +9,8 @@ Q-learning is a model-free reinforcement learning algorithm to learn the value o
 It does not require a model of the environment and can handle problems with stochastic transitions and rewards without 
 requiring adaptations. 
 
+DRL 
+Combining Q Learning with Deep learning gives us the DQN (Deep Q Network) algorithm. 
 
 
 
