@@ -10,8 +10,7 @@ It does not require a model of the environment and can handle problems with stoc
 requiring adaptations. 
 
 
-DRL 
-Combining Q Learning with Deep learning gives us the DQN (Deep Q Network) algorithm. 
+
 
 There are 5 essential pieces to the framework model:
 1.	Data Preparation
