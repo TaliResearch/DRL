@@ -1,7 +1,4 @@
-# Deep Reinforcement Learning (DRL) Trading Framework 
 
-(-- See file titled "Write Up" in this repo for a more detailed, easy to follow, walk through
-of what the model achieves.) 
 
 
 Reinforcement Learning - Q-learning 
