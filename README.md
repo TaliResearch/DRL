@@ -4,6 +4,8 @@
 of what the model achieves.) 
 
 Reinforcement Learning - Q-learning 
+
+
 Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. 
 It does not require a model of the environment and can handle problems with stochastic transitions and rewards without 
 requiring adaptations. 
