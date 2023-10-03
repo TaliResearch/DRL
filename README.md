@@ -21,12 +21,7 @@ There are 5 essential pieces to the framework model:
 
 
 
-"""
-This code provides a basic framework for implementing a DQN trading strategy. 
-We can replace the data loading and preprocessing steps with your different data sets 
-depending on the asset(s) of our preferred investment universe,
-as well as define the reward logic and possible actions based on style and parameters of 
-strategy. 
+
 
 
 Note: Adjust hyperparameters across a range of values to customise, for stress testing and
