@@ -10,15 +10,6 @@ requiring adaptations.
 
 
 
-DRL 
-Combining Q Learning with Deep learning gives us the DQN (Deep Q Network) algorithm. 
-
-There are 5 essential pieces to the framework model:
-1.	Data Preparation
-2.	Environment Setup
-3.	Deep Reinforcement Learning Model
-4.	Agent Training
-5.	Evaluation
 
 """
 This code provides a basic framework for implementing a DQN trading strategy. 
